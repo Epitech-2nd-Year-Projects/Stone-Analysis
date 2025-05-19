@@ -2,9 +2,9 @@ NAME	=	stone_analysis
 
 RM		= 	rm -rf
 
-all: $(NAME)
+all: build
 
-$(NAME):
+build:
 	go build -buildvcs=false -v -o $(NAME) ./cmd/stone-analysis
 
 test:
