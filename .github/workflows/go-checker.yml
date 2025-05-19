@@ -47,11 +47,12 @@ jobs:
       - name: run fmt
         run: go fmt ./...
 
-      - name: Test with coverage
+      - name: test with coverage
         run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
 
-      - name: Upload coverage to Codecov
+      - name: upload coverage to codecov
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.txt
           fail_ci_if_error: false
