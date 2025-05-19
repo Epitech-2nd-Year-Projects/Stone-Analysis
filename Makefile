@@ -5,7 +5,10 @@ RM		= 	rm -rf
 all: $(NAME)
 
 $(NAME):
-	go build -buildvcs=false -o $(NAME) ./cmd/stone-analysis
+	go build -buildvcs=false -v -o $(NAME) ./cmd/stone-analysis
+
+test:
+	go test -v ./...
 
 clean:
 	$(RM) $(NAME)
