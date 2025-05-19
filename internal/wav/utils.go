@@ -27,19 +27,39 @@ func ValidateWavFormat(wavFile *WavFile) error {
 }
 
 func readBytes(file *os.File, n int) ([]byte, error) {
-	return []byte{}, nil
+	buffer := make([]byte, n)
+	bytesRead, err := file.Read(buffer)
+	if err != nil {
+		return nil, fmt.Errorf("file.Read(buffer): %w", err)
+	}
+	if bytesRead != n {
+		return nil, fmt.Errorf("expected %d bytes, got %d", n, bytesRead)
+	}
+	return buffer, nil
 }
 
 func readString(file *os.File, n int) (string, error) {
-	return "", nil
+	buffer, err := readBytes(file, n)
+	if err != nil {
+		return "", err
+	}
+	return string(buffer), nil
 }
 
 func readUint16(file *os.File) (uint16, error) {
-	return 0, nil
+	buffer, err := readBytes(file, 2)
+	if err != nil {
+		return 0, err
+	}
+	return binary.LittleEndian.Uint16(buffer), nil
 }
 
 func readUint32(file *os.File) (uint32, error) {
-	return 0, nil
+	buffer, err := readBytes(file, 4)
+	if err != nil {
+		return 0, err
+	}
+	return binary.LittleEndian.Uint32(buffer), nil
 }
 
 func seekToChunk(file *os.File, chunkID string) error {
