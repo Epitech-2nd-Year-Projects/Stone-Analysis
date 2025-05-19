@@ -151,6 +151,11 @@ func WriteWavFile(filePath string, wavFile *WavFile) error {
 	writer := NewWavWriter()
 	writer.File = file
 
+	if wavFile.Samples != nil && len(wavFile.Samples) > 0 {
+		wavFile.DataChunk.Data = writer.ConvertFromSamples(wavFile.Samples)
+		wavFile.DataChunk.SubChunkSize = uint32(len(wavFile.DataChunk.Data))
+	}
+
 	if err := writer.WriteHeader(file, wavFile.Header); err != nil {
 		return fmt.Errorf("writer.WriteHeader(): %w", err)
 	}
