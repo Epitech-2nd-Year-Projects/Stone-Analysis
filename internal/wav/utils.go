@@ -26,6 +26,7 @@ func ValidateWavFormat(wavFile *WavFile) error {
 	return nil
 }
 
+//lint:ignore U1000 useful later
 func readBytes(file *os.File, n int) ([]byte, error) {
 	buffer := make([]byte, n)
 	bytesRead, err := file.Read(buffer)
@@ -38,6 +39,7 @@ func readBytes(file *os.File, n int) ([]byte, error) {
 	return buffer, nil
 }
 
+//lint:ignore U1000 useful later
 func readString(file *os.File, n int) (string, error) {
 	buffer, err := readBytes(file, n)
 	if err != nil {
@@ -46,6 +48,7 @@ func readString(file *os.File, n int) (string, error) {
 	return string(buffer), nil
 }
 
+//lint:ignore U1000 useful later
 func readUint16(file *os.File) (uint16, error) {
 	buffer, err := readBytes(file, 2)
 	if err != nil {
@@ -54,6 +57,7 @@ func readUint16(file *os.File) (uint16, error) {
 	return binary.LittleEndian.Uint16(buffer), nil
 }
 
+//lint:ignore U1000 useful later
 func readUint32(file *os.File) (uint32, error) {
 	buffer, err := readBytes(file, 4)
 	if err != nil {
