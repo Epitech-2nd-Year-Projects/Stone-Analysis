@@ -8,9 +8,9 @@ import (
 
 var (
 	ErrUnsupportedAudioFormat = errors.New("unsupported audio format")
-	ErrInvalidNumChannels     = errors.New("Invalid number of channels")
-	ErrInvalidSampleRate      = errors.New("Invalid sample rate")
-	ErrInvalidBitsPerSample   = errors.New("Invalid bits per sample")
+	ErrInvalidNumChannels     = errors.New("invalid number of channels")
+	ErrInvalidSampleRate      = errors.New("invalid sample rate")
+	ErrInvalidBitsPerSample   = errors.New("invalid bits per sample")
 )
 
 type FourCC [4]byte
