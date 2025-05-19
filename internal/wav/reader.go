@@ -143,9 +143,8 @@ func (w *WavReader) ConvertToSamples(data []byte) []float64 {
 	var samples = make([]float64, len(data)/2)
 
 	for i := 0; i < len(samples); i++ {
-		var sample = make([]byte, 2)
-		copy(sample, data[i*2:(i+1)*2])
-		samples[i] = float64(binary.LittleEndian.Uint16(sample)) / float64(1<<15)
+		sample := int16(binary.LittleEndian.Uint16(data[i*2 : (i+1)*2]))
+		samples[i] = float64(sample) / 32768.0
 	}
 
 	return samples
