@@ -38,7 +38,7 @@ func (w *WavWriter) WriteHeader(file *os.File, header WavHeader) error {
 		return fmt.Errorf("binary.Write(file, w.endianness, header.Format): %w", err)
 	}
 
-	w.current += 8
+	w.current += 12
 
 	return nil
 }
