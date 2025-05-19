@@ -16,6 +16,3 @@ clean:
 fclean: clean
 
 re: fclean all
-
-test:
-	go test ./...
