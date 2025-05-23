@@ -1,0 +1,58 @@
+name: Go checker
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: build and test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: set up go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.1'
+          check-latest: true
+
+      - name: install dependencies
+        run: go mod download
+
+      - name: verify dependencies
+        run: go mod verify
+
+      - name: build
+        run: make build
+
+      - name: run tests
+        run: make test
+
+      - name: run vet
+        run: go vet ./...
+
+      - name: install staticcheck
+        run: go install honnef.co/go/tools/cmd/staticcheck@latest
+
+      - name: run staticcheck
+        run: staticcheck ./...
+
+      - name: run fmt
+        run: go fmt ./...
+
+      - name: Test with coverage
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.txt
+          fail_ci_if_error: false
