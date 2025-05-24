@@ -66,7 +66,11 @@ func main() {
 			utils.DisplayHelp()
 			os.Exit(84)
 		}
-		analyze.Analyze(inFile, n)
+
+		if err := analyze.Analyze(inFile, n); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(84)
+		}
 	} else if *cypherFlag {
 		if len(args) != 3 {
 			utils.DisplayHelp()
@@ -82,7 +86,11 @@ func main() {
 			utils.DisplayHelp()
 			os.Exit(84)
 		}
-		cypher.Cypher(inFile, outFile, message)
+
+		if err := cypher.Cypher(inFile, outFile, message); err != nil {
+			fmt.Fprintln(os.Stderr, "Error:", err)
+			os.Exit(84)
+		}
 	} else if *decypherFlag {
 		if len(args) != 1 {
 			utils.DisplayHelp()
@@ -96,6 +104,7 @@ func main() {
 			utils.DisplayHelp()
 			os.Exit(84)
 		}
+
 		decypher.Decypher(inFile)
 	}
 }
